@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-with-helm
+  labels:
+    app: wordpress
+#    chart: {{ template "helm-guestbook.chart" . }}
+    release: 5.3
+#    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: wordpress
+      release: 5.3
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        release: 5.3
+    spec:
+      containers:
+        - name: wordpress
+          image: https://charts.bitnami.com/bitnami
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+
