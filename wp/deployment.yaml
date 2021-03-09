@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: wordpress
-          image: https://github.com/bitnami/charts
+          image: https://charts.bitnami.com/bitnami/wordpress
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
